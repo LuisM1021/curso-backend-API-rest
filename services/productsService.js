@@ -17,13 +17,13 @@ class ProductsService{
       })
     }
   }
-  create(newItem){
-    this.products.push(newItem);
-    const response = {
-      message: 'created',
-      data: newItem
+  create(data){
+    const newItem = {
+      id: faker.string.uuid(),
+      ...data
     }
-    return response;
+    this.products.push(newItem);
+    return newItem;
   }
   find(){
     return this.products;
@@ -32,48 +32,25 @@ class ProductsService{
     return this.products.find(item => item.id === id);
   }
   update(id,updatedItem){
-    let updated = false;
-    let changedItem
-    this.products.forEach((product,index) =>{
-      if(product.id === id){
-        this.products[index] = updatedItem;
-        updated = true;
-        changedItem = this.products[index];
-      }
-    });
-    if(updated){
-      return {
-        message: 'updated',
-        data: changedItem,
-        id
-      }
-    }else{
-      return {
-        message: 'Not found',
-        data: null,
-        id
-      }
+    const itemIndex = this.products.findIndex(product => product.id === id);
+    if (itemIndex !== -1){
+      const product = this.products[itemIndex];
+      this.products[itemIndex] = {
+        ...product,
+        ...updatedItem
+      };
+      return this.products[itemIndex];
+    } else{
+      throw new Error('Product not found');
     }
   }
   delete(id){
-    let deleted = false;
-    this.products = this.products.filter(product=>{
-      if(product.id !== id){
-        return product;
-      }else{
-        deleted = true
-      }
-    })
-    if(deleted){
-      return {
-        message: 'deleted',
-        id
-      }
+    const itemIndex = this.products.findIndex(product => product.id === id);
+    if (itemIndex !== -1){
+      this.products.splice(itemIndex,1);
+      return { id };
     }else{
-      return{
-        message: 'not found',
-        id
-      }
+      throw new Error('Product not found');
     }
   }
 }
