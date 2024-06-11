@@ -17,7 +17,7 @@ class ProductsService{
       })
     }
   }
-  create(data){
+  async create(data){
     const newItem = {
       id: faker.string.uuid(),
       ...data
@@ -25,13 +25,18 @@ class ProductsService{
     this.products.push(newItem);
     return newItem;
   }
-  find(){
-    return this.products;
+  async find(){
+    return new Promise((resolve)=>{
+      setTimeout(()=>{
+        resolve(this.products);
+      },5000)
+    })
   }
-  findOne(id){
+  async findOne(id){
+    const name = this.algo();
     return this.products.find(item => item.id === id);
   }
-  update(id,updatedItem){
+  async update(id,updatedItem){
     const itemIndex = this.products.findIndex(product => product.id === id);
     if (itemIndex !== -1){
       const product = this.products[itemIndex];
@@ -44,7 +49,7 @@ class ProductsService{
       throw new Error('Product not found');
     }
   }
-  delete(id){
+  async delete(id){
     const itemIndex = this.products.findIndex(product => product.id === id);
     if (itemIndex !== -1){
       this.products.splice(itemIndex,1);
