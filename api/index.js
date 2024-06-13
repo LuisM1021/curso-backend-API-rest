@@ -12,7 +12,7 @@ app.use(express.json());
 const whitelist = ['http://127.0.0.1:5500','http://172.30.133.147:5500'];
 const options = {
   origin: (origin, callback) => {
-    if(whitelist.includes(origin || !origin)){
+    if(whitelist.includes(origin)||!origin){
       callback(null,true);
     }else{
       callback(new Error('No permitido'));
@@ -21,11 +21,11 @@ const options = {
 }
 app.use(cors(options));
 
-app.get('/',(req,res)=>{
+app.get('/api',(req,res)=>{
   res.send('Hello from express');
   })
 
-app.get('/new-endpoint',(req,res)=>{
+app.get('/api/new-endpoint',(req,res)=>{
     res.send('Hello from the new endpoint')
     })
 
