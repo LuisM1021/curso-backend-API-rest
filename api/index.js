@@ -5,6 +5,7 @@ const routerApi = require ('./routes');
 const {logErrors, errorHandler, boomErrorHandler} = require('./middlewares/errorHandler');
 
 const app = express();
+// eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
