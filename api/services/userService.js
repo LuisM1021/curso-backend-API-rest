@@ -9,7 +9,13 @@ class UserService{
     const res = await client.query('SELECT * FROM tasks');
     return res.rows;
   }
-
+  async create(data){
+    return {
+      status: 'ok',
+      result: 'created',
+      newUser: data
+    }
+  }
 }
 
 module.exports = UserService;
