@@ -1,13 +1,12 @@
 
-const getConnection = require('../libs/postgres');
+const { models } = require('../libs/sequelize');
 
 class UserService{
   constructor(){}
 
   async find(){
-    const client = await getConnection();
-    const res = await client.query('SELECT * FROM tasks');
-    return res.rows;
+    const res = await models.User.findAll();
+    return res;
   }
   async create(data){
     return {
