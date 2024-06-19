@@ -21,6 +21,9 @@ class ProductsService{
       })
     }
   }
+  async find(){
+    return {s: 'something'}
+  }
   async create(data){
     const newItem = {
       id: faker.string.uuid(),
@@ -28,11 +31,6 @@ class ProductsService{
     }
     this.products.push(newItem);
     return newItem;
-  }
-  async find(){
-    const query = 'SELECT * FROM tasks';
-    const [data] = await sequelize.query(query);
-    return data
   }
   async findOne(id){
     const product =  this.products.find(item => item.id === id);

@@ -7,13 +7,13 @@ const ProductsService = require('../services/productsService');
 const router = express.Router();
 const service = new ProductsService();
 
-router.get('/',async (req,res)=>{
-  const products =await service.find();
-  res.status(200).json(products);
-})
-
-router.get('/filter',(req,res) => {
-  res.send('I´m filter')
+router.get('/',async (req,res,next)=>{
+  try {
+    const products = await service.find();
+    res.status(200).json(products);
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.get('/:id',
@@ -51,7 +51,9 @@ router.patch('/:id',
   }
 })
 
-router.delete('/:id', async (req,res)=>{
+router.delete('/:id',
+  validationHandler(getProductSchema, 'params'),
+  async (req,res)=>{
   const {id} = req.params;
   const deletedProduct = await service.delete(id);
   res.json(deletedProduct);
