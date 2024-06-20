@@ -7,7 +7,7 @@ const CUSTOMER_TABLE = 'customers';
 const CustomerSchema = {
   id:{
     allowNull: false,
-    autoincrement: true,
+    autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER
   },

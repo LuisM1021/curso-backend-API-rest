@@ -24,13 +24,13 @@ class CustomerService{
   }
 
   async update(id, changes){
-    const customer = this.findOne(id);
+    const customer = await this.findOne(id);
     const res = await customer.update(changes);
     return res;
   }
 
   async delete(id){
-    const customer = this.findOne(id);
+    const customer = await this.findOne(id);
     await customer.destroy();
     return { id };
   }
