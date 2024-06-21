@@ -6,7 +6,7 @@ const { DataTypes } = require('sequelize');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface) {
-    queryInterface.changeColumn(CUSTOMER_TABLE,'user_id',{
+    await queryInterface.changeColumn(CUSTOMER_TABLE,'user_id',{
       field: 'user_id',
       allowNull: false,
       unique: true,
