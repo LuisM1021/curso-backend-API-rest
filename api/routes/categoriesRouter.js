@@ -63,8 +63,8 @@ router.delete('/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const res = await service.delete(id);
-      res.json(res);
+      const result = await service.delete(id);
+      res.json(result);
     } catch (error) {
       next(error);
     }
