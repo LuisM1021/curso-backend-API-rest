@@ -16,11 +16,5 @@ module.exports = {
 
   async down (queryInterface) {
     await queryInterface.removeColumn(CATEGORY_TABLE,'created_at');
-    await queryInterface.addColumn(CATEGORY_TABLE,'created_at',{
-      allowNull: false,
-      field: 'created_at',
-      type: DataTypes.INTEGER,
-      defaultValue: Sequelize.NOW
-    })
   }
 };
