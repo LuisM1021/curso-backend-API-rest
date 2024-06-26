@@ -22,6 +22,7 @@ const options = {
   }
 }
 app.use(cors(options));
+require('./utils/auth');
 
 app.get('/api',(req,res)=>{
   res.send('Hello from express');
