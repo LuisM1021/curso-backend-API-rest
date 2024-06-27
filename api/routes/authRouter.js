@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 
-const { recoverySchema } = require('../schemas/authSchema');
+const { recoverySchema, changePasswordSchema } = require('../schemas/authSchema');
 const validationHandler = require('../middlewares/validationHandler');
 
 const AuthService = require('../services/authService');
@@ -28,6 +28,19 @@ router.post('/recovery',
       res.json(rta);
     } catch (error) {
       next(error);
+    }
+  }
+)
+
+router.post('/change-password',
+  validationHandler(changePasswordSchema, 'body'),
+  async(req, res, next) => {
+    try {
+      const { token, newPassword } = req.body;
+      const rta = await service.changePassword(token, newPassword);
+      res.json(rta);
+    } catch (error) {
+      next(error)
     }
   }
 )
