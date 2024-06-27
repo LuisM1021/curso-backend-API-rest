@@ -19,13 +19,12 @@ router.post('/login',
     }
   }
 )
-router.get('/test',(req,res)=>(res.json('hello')));
 router.post('/recovery',
   validationHandler(recoverySchema, 'body'),
   async(req, res, next) => {
     try {
       const { email } = req.body;
-      const rta = await service.sendMail(email);
+      const rta = await service.sendRecovery(email);
       res.json(rta);
     } catch (error) {
       next(error);
