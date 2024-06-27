@@ -41,12 +41,12 @@ class AuthService{
       port: 465,
       secure: true, // Use `true` for port 465, `false` for all other ports
       auth: {
-        user: 'secret',
-        pass: 'secret'
+        user: config.mailUser,
+        pass: config.mailPassword
       }
     });
     await transporter.sendMail({
-      from: 'secret', // sender address
+      from: config.mailUser, // sender address
       to: user.email, // list of receivers
       subject: "Correo desde node", // Subject line
       text: "Hola desde node con env", // plain text body
