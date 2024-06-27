@@ -25,8 +25,31 @@ class OrderService{
     return order;
   }
 
-  async create(data){
-    const newOrder = await models.Order.create(data);
+  async findByUser(userId){
+    const userOrders = await models.Order.findAll({
+      where: {
+        '$customer.user.id$' : userId
+      },
+      include: [
+        {
+          association: 'customer',
+          include: ['user']
+        }
+      ]
+    })
+    return userOrders;
+  }
+
+  async create(userId){
+    const customer = await models.Customer.findAll({
+      where: {
+        userId: userId
+      }
+    });
+    const customerId = customer[0].dataValues.id;
+    const newOrder = await models.Order.create({
+      'customerId': customerId
+    });
     return newOrder;
   }
 
