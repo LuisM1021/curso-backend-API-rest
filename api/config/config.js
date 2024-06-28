@@ -3,6 +3,7 @@ require('dotenv').config();
 const config = {
   env: process.env.NODE_ENV || 'dev',
   port: process.env.PORT || 3000,
+  dbURI: process.env.DB_URI,
   dbUser: process.env.DB_USER,
   dbPassword: process.env.DB_PASSWORD,
   dbHost: process.env.DB_HOST,
@@ -12,6 +13,8 @@ const config = {
   jwtSecret: process.env.JWT_SECRET,
   mailUser: process.env.GMAIL_USER,
   mailPassword: process.env.GMAIL_PWD,
+  rootEmail: process.env.ROOT_EMAIL,
+  rootPassword: process.env.ROOT_PWD
 }
 
 module.exports = { config };
